@@ -27,14 +27,10 @@ type Application struct {
 
 func (a *Application) AddPackage(p *Package) error {
 	if _, ok := a.PackagesList[p.Versioncode]; ok {
-		return errors.New("Package already exists")
+		return errors.New("Package " + p.Version + " already exists")
 	}
 	a.Packages = append(a.Packages, *p)
 	a.PackagesList[p.Versioncode] = true
-	if err := p.Download(a.Id); err != nil {
-		fmt.Printf("Canno't download the current application - due to error %s\n", err)
-		return err
-	}
 	return nil
 }
 
